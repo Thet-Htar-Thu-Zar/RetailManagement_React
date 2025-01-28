@@ -16,7 +16,7 @@ import CashierView from "@/modules/cashier/CashierView";
 import HomeView from "@/modules/home/HomeView";
 import ProductView from "@/modules/product/ProductView";
 import ManagerView from "@/modules/manager/ManagerView";
-import LoginView from "@/modules/auth/Login/LoginView";
+import LoginView from "@/modules/auth/login/LoginView";
 
 const router = createBrowserRouter([
 	{
@@ -28,19 +28,19 @@ const router = createBrowserRouter([
 				element: <HomeView />,
 			},
 			{
-				path: "/product",
+				path: "product",
 				element: < ProductView/>,
 			},
 			{
-				path: "/cart",
+				path: "cart",
 				element: <CartView />,
 			},
 			{
-				path: "/cashier",
+				path: "cashier",
 				element: <CashierView />,
 			},
 			{
-				path: "/manager-management",
+				path: "manager-management",
 				element: <ManagerView />,
 			},
 		],

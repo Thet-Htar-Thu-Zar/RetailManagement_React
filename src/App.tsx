@@ -1,10 +1,8 @@
+import "@/configs/axios";
+import Wrapper from "./components/Wrapper";
 
 const App = () => {
-  return (
-    <div>
-      App
-    </div>
-  )
-}
+    return <Wrapper/>;
+};
 
-export default App
+export default App;
