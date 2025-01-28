@@ -25,10 +25,10 @@ const ProfileBox = () => {
 							</Avatar>
 							<div className="text-left">
 								<h5 className="text-[13px] font-semibold">
-									Rudeus Greyrat
+									Chris
 								</h5>
 								<p className="text-primary text-[10px]">
-									HR Manager
+									Software Engineer
 								</p>
 							</div>
 						</div>
