@@ -2,7 +2,7 @@ import axios from "axios";
 import type { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 
-axios.defaults.baseURL = "https://localhost:7281/api";
+axios.defaults.baseURL = "https://localhost:7281/api/";
 
 // Add a request interceptor
 axios.interceptors.request.use(
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       // Redirect to login page if unauthorized
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
     }
     return Promise.reject(error);
   }
