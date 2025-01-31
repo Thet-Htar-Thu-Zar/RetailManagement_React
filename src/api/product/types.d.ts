@@ -31,3 +31,18 @@ export type UpdateProductInputType = {
 export type DeleteProductType = {
   productID: string;
 };
+
+export type CartType = {
+  productID: string;
+  productName: string;
+  quantity: number;
+  remainingStock: number;
+  productPrice: number;
+  productProfit: number;
+};
+
+export type CartType = {
+  // productID: string;
+  productName: string;
+  quantity: number;
+};

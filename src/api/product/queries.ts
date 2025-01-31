@@ -1,86 +1,17 @@
-// import productServices from "./services";
-// import {
-//   DeleteProductType,
-//   GetAllProductType,
-//   UpdateProductInputType,
-// } from "./types";
-// import { APIResponse } from "@/shared/types";
-// import {
-//   useMutation,
-//   UseMutationOptions,
-//   useQuery,
-//   useQueryClient,
-//   UseQueryOptions,
-// } from "@tanstack/react-query";
-
-// export const fetchStocks = {
-//   useQuery: (opt?: UseQueryOptions<GetAllProductType[], Error>) =>
-//     useQuery<GetAllProductType[], Error>({
-//       queryKey: ["getallproduct"],
-//       queryFn: async () => {
-//         const response: APIResponse<GetAllProductType[]> =
-//           await productServices.getAllProduct();
-
-//         return response.data;
-//       },
-//       ...opt,
-//     }),
-// };
-
-// export const addProduct = {
-//   useMutation: (
-//     opt?: UseMutationOptions<any, Error, GetAllProductType, any>
-//   ) => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//       mutationKey: ["addProduct"],
-//       mutationFn: (payload: GetAllProductType) =>
-//         productServices.addProduct(payload),
-//       onSuccess: () => {
-//         queryClient.invalidateQueries({ queryKey: ["getallproduct"] });
-//       },
-//       ...opt,
-//     });
-//   },
-// };
-
-// export const updateProduct = {
-//   useMutation: (
-//     opt?: UseMutationOptions<any, Error, UpdateProductInputType, any>
-//   ) => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//       mutationKey: ["updateProduct"],
-//       mutationFn: (payload: UpdateProductInputType) =>
-//         productServices.updateProduct(payload),
-//       onSuccess: () => {
-//         queryClient.invalidateQueries({ queryKey: ["getallproduct"] });
-//       },
-//       ...opt,
-//     });
-//   },
-// };
-
-// export const deleteProduct = {
-//   useMutation: (
-//     opt?: UseMutationOptions<any, Error, DeleteProductType, any>
-//   ) => {
-//     const queryClient = useQueryClient();
-//     return useMutation({
-//       mutationKey: ["deleteProduct"],
-//       mutationFn: async (payload: DeleteProductType) =>
-//         await productServices.deleteProduct(payload),
-//       onSuccess: () => {
-//         queryClient.invalidateQueries({ queryKey: ["getallproduct"] });
-//       },
-//       ...opt,
-//     });
-//   },
-// };
-
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 import axios from "axios";
-import { ProductType } from "./types";
+import {
+  DeleteProductType,
+  GetAllProductType,
+  UpdateProductInputType,
+} from "./types";
+import { ProductType } from "@/shared/types";
 
 export const fetchStocks = {
   useQuery: (
@@ -102,6 +33,68 @@ export const fetchStocks = {
         } catch {
           throw new Error("Error While Fetching");
         }
+      },
+      ...opt,
+    });
+  },
+};
+
+export const addProduct = {
+  useMutation: (
+    opt?: UseMutationOptions<unknown, Error, UpdateProductInputType, unknown>
+  ) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationKey: ["addProduct"],
+      mutationFn: (payload: UpdateProductInputType) => {
+        return axios.post("Product/AddProduct", payload);
+      },
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: ["getAllProducts"],
+        });
+      },
+      ...opt,
+    });
+  },
+};
+
+export const updateProduct = {
+  useMutation: (
+    opt?: UseMutationOptions<unknown, Error, UpdateProductInputType, unknown>
+  ) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationKey: ["updateProduct"],
+      mutationFn: (payload: UpdateProductInputType) => {
+        return axios.post("Product/UpdateProduct", payload);
+      },
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: ["getAllProducts"],
+        });
+      },
+      ...opt,
+    });
+  },
+};
+
+export const deleteProduct = {
+  useMutation: (
+    opt?: UseMutationOptions<unknown, Error, DeleteProductType, unknown>
+  ) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationKey: ["DeleteProduct"],
+      mutationFn: (DeleteProductType) => {
+        return axios.delete("Product/DeleteProduct", {
+          data: DeleteProductType,
+        });
+      },
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({
+          queryKey: ["getAllProducts"],
+        });
       },
       ...opt,
     });
