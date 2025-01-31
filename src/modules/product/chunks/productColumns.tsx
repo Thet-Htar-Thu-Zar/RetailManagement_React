@@ -1,7 +1,9 @@
 import { UpdateProductInputType } from "@/api/product/types";
 import { Button } from "@/components/ui/button";
+import { ProductType } from "@/shared/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+import ProductAction from "./productAction";
 
 export const productcolumns: ColumnDef<UpdateProductInputType>[] = [
   {
@@ -33,12 +35,14 @@ export const productcolumns: ColumnDef<UpdateProductInputType>[] = [
     accessorKey: "remainingStock",
     header: () => <div className="text-right">Remaining Stock</div>,
     cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("remainingStock")}</div>;
+      return (
+        <div className="text-center">{row.getValue("remainingStock")}</div>
+      );
     },
   },
   {
     accessorKey: "productPrice",
-    header: () => <div className="text-right">Price</div>,
+    header: () => <div className="text-center">Price</div>,
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("productPrice"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -46,12 +50,12 @@ export const productcolumns: ColumnDef<UpdateProductInputType>[] = [
         currency: "USD",
       }).format(price);
 
-      return <div className="text-right">{formatted}</div>;
+      return <div className="text-center">{formatted}</div>;
     },
   },
   {
     accessorKey: "productProfit",
-    header: () => <div className="text-right">Product Profit</div>,
+    header: () => <div className="text-center">Product Profit</div>,
     cell: ({ row }) => {
       const profit = parseFloat(row.getValue("productProfit"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -59,16 +63,17 @@ export const productcolumns: ColumnDef<UpdateProductInputType>[] = [
         currency: "USD",
       }).format(profit);
 
-      return <div className="text-right">{formatted}</div>;
+      return <div className="text-center">{formatted}</div>;
     },
   },
-  // {
-  //   accessorKey: "action",
-  //   header: () => <div className="text-right">Action</div>,
-  //   cell: ({ row }) => {
-  //     return <ProductAction product={row.original as ProductType} />;
-  //   },
-  // },
+  {
+    accessorKey: "Action",
+    header: () => <div className="text-center">Actions</div>,
+    cell: ({ row }) => {
+      const product = row.original as ProductType;
+      return <ProductAction product={product} />;
+    },
+  },
 ];
 
 export const columnVisibility = {
