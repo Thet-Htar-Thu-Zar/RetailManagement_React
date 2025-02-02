@@ -14,21 +14,21 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
 
   {
     accessorKey: "productID",
-    header: () => <div className="text-right">Product ID</div>,
+    header: () => <div className="text-center">Product ID</div>,
     cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("productID")}</div>;
+      return <div className="text-center">{row.getValue("productID")}</div>;
     },
   },
   {
     accessorKey: "quantitySold",
-    header: () => <div className="text-right">Quantity Sold</div>,
+    header: () => <div className="text-center">Quantity Sold</div>,
     cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("quantitySold")}</div>;
+      return <div className="text-center">{row.getValue("quantitySold")}</div>;
     },
   },
   {
     accessorKey: "totalPrice",
-    header: () => <div className="text-right">Total Price</div>,
+    header: () => <div className="text-center">Total Price</div>,
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("totalPrice"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -36,12 +36,12 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
         currency: "USD",
       }).format(price);
 
-      return <div className="text-right">{formatted}</div>;
+      return <div className="text-center">{formatted}</div>;
     },
   },
   {
     accessorKey: "totalProfit",
-    header: () => <div className="text-right">Total Profit</div>,
+    header: () => <div className="text-center">Total Profit</div>,
     cell: ({ row }) => {
       const profit = parseFloat(row.getValue("totalProfit"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -49,7 +49,7 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
         currency: "USD",
       }).format(profit);
 
-      return <div className="text-right">{formatted}</div>;
+      return <div className="text-center">{formatted}</div>;
     },
   },
   {
@@ -58,7 +58,7 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
       return (
         <Button
           variant="ghost"
-          className="bg-white text-black hover:bg-blue-200"
+          className=" text-black hover:bg-blue-200 text-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "desc")}
         >
           Created Date

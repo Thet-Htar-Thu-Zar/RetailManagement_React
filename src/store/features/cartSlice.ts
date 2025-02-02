@@ -95,9 +95,57 @@ export const CartSlice = createSlice({
         (item) => item.productID !== action.payload
       );
     },
+
+    increaseItem: (state, action: PayloadAction<CartType>) => {
+      const product = action.payload;
+      const existingItem = state.cartItems.find(
+        (item) => item.productID === product.productID
+      );
+
+      if (existingItem && existingItem.quantity < product.remainingStock) {
+        existingItem.quantity += 1;
+      } else if (existingItem?.quantity === product.remainingStock) {
+        toast({
+          title: "Remaining Stock is not enough!",
+          variant: "destructive",
+          duration: 600,
+        });
+        return;
+      } else {
+        const cartItems: CartType = {
+          ...product,
+          quantity: 1,
+        };
+        state.cartItems.push(cartItems);
+      }
+      toast({
+        title: "Successfully added to cart!",
+        duration: 600,
+      });
+    },
+
+    reduceItem: (state, action: PayloadAction<string>) => {
+      const existingItem = state.cartItems.find(
+        (item) => item.productID === action.payload
+      );
+
+      if (existingItem && existingItem.quantity > 1) {
+        existingItem.quantity -= 1;
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (item) => item.productID != action.payload
+        );
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart, reduceCartItems } = CartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  reduceCartItems,
+  increaseItem,
+  reduceItem,
+} = CartSlice.actions;
 
 export default CartSlice.reducer;

@@ -65,7 +65,7 @@ export function SaleDataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="ml-7 mr-7">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter product ID..."

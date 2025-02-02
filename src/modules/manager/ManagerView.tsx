@@ -7,8 +7,8 @@ const ManagerView = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold">Manager Page👨🏻‍💼</h1>
-      <p className="text-gray-600">Overview of Sales Performance</p>
+      <h1 className="text-3xl font-bold ml-10">Manager Page👨🏻‍💼</h1>
+      <p className="text-gray-600 ml-10">Overview of Sales Performance</p>
       <SaleDataTable columns={salecolumns} data={sale ?? []} />
     </div>
   );
