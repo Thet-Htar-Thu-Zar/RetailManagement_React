@@ -1,4 +1,3 @@
-// import {useTranslation} from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
 import { sidebarData } from "./sidebarData";
 import { Package2 } from "lucide-react";
@@ -15,20 +14,13 @@ const DesktopSidebar = () => {
   return (
     <aside
       className={
-        "lg:flex flex-col hidden min-h-svh min-w-[220px] lg:min-w-[240px] bg-gradient-to-r from-green-200 to-blue-300 h-full"
+        "lg:flex flex-col hidden min-h-svh min-w-[200px] lg:min-w-[240px] bg-gradient-to-r from-green-200 to-blue-300 h-full"
       }
     >
       <div className="flex flex-col items-center justify-center h-20">
         <h5 className="flex text-xl font-bold leading-4 cursor-pointer">
-          {/* {t('common.dashboard')} <span className="text-[8px]">v.01</span> */}
           <Package2 className="h-6 w-6 mr-2" /> Chris MARKET
         </h5>
-        {/* <h4
-                className="text-[10px] leading-[0.75] font-bold tracking-normal cursor-pointer"
-            >
-                <b className="text-[#f9b223] font-semibold"> FUSION </b>
-                SOLUTION
-            </h4> */}
       </div>
       <ul className={"px-3"}>
         {sidebarData.map((item) => (
