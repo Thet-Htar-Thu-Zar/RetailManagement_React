@@ -9,7 +9,7 @@ export const sidebarData = [
   {
     routeNames: ["/product"],
     name: "Product",
-    icon: Presentation,
+    icon: ListBulletIcon,
     subMenu: null,
   },
   {
@@ -21,7 +21,7 @@ export const sidebarData = [
   {
     routeNames: ["/cashier"],
     name: "Cashier",
-    icon: ListBulletIcon,
+    icon: Presentation,
     subMenu: null,
   },
   {
