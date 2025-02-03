@@ -47,6 +47,8 @@ export function ProductDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
 
+  const [rowSelection, setRowSelection] = React.useState({});
+
   const table = useReactTable({
     data,
     columns,
@@ -55,12 +57,14 @@ export function ProductDataTable<TData, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
+      rowSelection,
     },
   });
 
@@ -75,12 +79,12 @@ export function ProductDataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn("productName")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm ml-5"
         />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="ml-auto mr-5">
               Columns
             </Button>
           </DropdownMenuTrigger>

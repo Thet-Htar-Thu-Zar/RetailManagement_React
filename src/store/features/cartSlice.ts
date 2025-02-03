@@ -137,6 +137,10 @@ export const CartSlice = createSlice({
         );
       }
     },
+
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
   },
 });
 
@@ -146,6 +150,7 @@ export const {
   reduceCartItems,
   increaseItem,
   reduceItem,
+  clearCart,
 } = CartSlice.actions;
 
 export default CartSlice.reducer;

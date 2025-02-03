@@ -19,8 +19,8 @@ const ProductView = () => {
       </h4>
 
       <div className="flex justify-end mb-2 ">
-        <ProductAddEditDialog isEdit={false}>
-          <Button className="text-sm items-center justify-center mr-5">
+        <ProductAddEditDialog isEdit={false} editproduct={undefined}>
+          <Button className="text-sm items-center justify-center mr-5 pb-5 pt-5">
             Add New Product
           </Button>
         </ProductAddEditDialog>

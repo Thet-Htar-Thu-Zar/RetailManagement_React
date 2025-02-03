@@ -37,7 +37,7 @@ const formSchema = z.object({
 type ProductAddEditDialog = {
   children: ReactNode;
   isEdit: boolean;
-  editproduct: ProductType;
+  editproduct?: ProductType;
 };
 
 const ProductAddEditDialog = ({
