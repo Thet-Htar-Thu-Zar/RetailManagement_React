@@ -66,7 +66,7 @@ export function SaleDataTable<TData, TValue>({
 
   return (
     <div className="ml-7 mr-7">
-      <div className="flex items-center py-4">
+      {/* <div className="flex items-center py-4">
         <Input
           placeholder="Filter product ID..."
           value={
@@ -76,7 +76,32 @@ export function SaleDataTable<TData, TValue>({
             table.getColumn("productID")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
+        /> */}
+
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter by product ID or date..."
+          value={table.getState().globalFilter ?? ""}
+          onChange={(event) => table.setGlobalFilter(event.target.value)}
+          className="max-w-sm"
         />
+
+        {/* <Input
+          type="date"
+          placeholder="Filter by date..."
+          value={
+            (table.getColumn("createdDate")?.getFilterValue() as string) ?? ""
+          }
+          onChange={(event) => {
+            const value = event.target.value;
+            table
+              .getColumn("createdDate")
+              ?.setFilterValue(
+                value ? new Date(value).toISOString().split("T")[0] : ""
+              );
+          }}
+          className="max-w-sm ml-4"
+        /> */}
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

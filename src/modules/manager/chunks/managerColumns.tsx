@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
+import { format } from "date-fns";
+
 export const salecolumns: ColumnDef<SaleReportType>[] = [
   {
     accessorKey: "No",
@@ -58,7 +60,7 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
       return (
         <Button
           variant="ghost"
-          className=" text-black hover:bg-blue-200 text-center"
+          className=" text-black hover:bg-blue-200 text-center ml-10"
           onClick={() => column.toggleSorting(column.getIsSorted() === "desc")}
         >
           Created Date
@@ -66,9 +68,11 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("createdDate")}</div>
-    ),
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("createdDate"));
+      const formatted = format(date, "yyyy-MM-dd HH:mm:ss");
+      return <div className="text-center ">{formatted}</div>;
+    },
   },
 ];
 
