@@ -6,11 +6,7 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  DeleteProductType,
-  GetAllProductType,
-  UpdateProductInputType,
-} from "./types";
+import { DeleteProductType, UpdateProductInputType } from "./types";
 import { ProductType } from "@/shared/types";
 
 export const fetchStocks = {

@@ -1,3 +1,4 @@
+import { addSale } from "@/api/sale/queries";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -8,8 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { toast } from "@/hooks/use-toast";
 import { RootState, useAppDispatch, useAppSelector } from "@/store";
 import {
+  clearCart,
   increaseItem,
   reduceItem,
   removeFromCart,
@@ -22,6 +25,7 @@ const CartView = () => {
   const CartItems = useAppSelector((state: RootState) => state.cart.cartItems);
   const dispatch = useAppDispatch();
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const { mutate } = addSale.useMutation({});
 
   useEffect(() => {
     setTotalPrice(
@@ -32,10 +36,44 @@ const CartView = () => {
     );
   }, [CartItems]);
 
+  const cashProcess = () => {
+    if (CartItems.length === 0) {
+      toast({
+        title: "No items in the cart...",
+        variant: "destructive",
+        duration: 600,
+      });
+      return;
+    }
+
+    const saleData = CartItems.map(
+      (item: { productID: string; quantity: number }) => ({
+        productID: item.productID,
+        quantitySold: item.quantity,
+        createdBy: "user",
+      })
+    );
+
+    saleData.forEach((data) => {
+      try {
+        mutate(data);
+      } catch (error) {
+        console.error(`Error processing item ${data.productID}: `, error);
+      }
+    });
+
+    toast({
+      title: "Transaction completed",
+      description: "Transaction completed successfully!",
+      duration: 1500,
+    });
+    dispatch(clearCart());
+  };
+
   return (
     <div>
       <div className=" min-h-screen">
-        <TableCaption className="text-3xl font-semibold text-center text-black flex justify-center mb-5">
+        <TableCaption className="text-3xl font-semibold text-center text-black flex justify-center mb-5 mt-5">
           Cart Page
           <DotLottiePlayer
             src="https://lottie.host/8fefe20b-7e96-45cf-a3ad-c2234290ed53/pPANOzbuMZ.lottie"
@@ -71,7 +109,10 @@ const CartView = () => {
                 </p>
               </div>
               <div className="flex gap-4">
-                <Button className="px-4 py-6 text-white bg-black rounded-lg hover:bg-gradient-to-r from-blue-300 to-green-600">
+                <Button
+                  className="px-4 py-6 text-white bg-black rounded-lg hover:bg-gradient-to-r from-blue-300 to-green-600"
+                  onClick={cashProcess}
+                >
                   Proceed to Cashier
                 </Button>
               </div>

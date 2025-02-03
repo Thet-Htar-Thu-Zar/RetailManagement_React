@@ -31,7 +31,7 @@ const DesktopSidebar = () => {
                 checkLocation(item.routeNames)
               }
             >
-              <div className={"flex items-center gap-3"}>
+              <div className={"flex items-center gap-3 text-lg"}>
                 {item.icon && <item.icon className="w-4 h-4" />}
                 <p className={"text-[13px]"}>{item.name}</p>
               </div>
