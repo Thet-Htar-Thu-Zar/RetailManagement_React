@@ -8,8 +8,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { LogoutDialog } from "@/components/dialogs";
+import Cookies from "js-cookie";
 
 const ProfileBox = () => {
+  const username = Cookies.get("user");
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -24,7 +26,7 @@ const ProfileBox = () => {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className="text-left">
-                <h5 className="text-[13px] font-semibold">Chris</h5>
+                <h5 className="text-[13px] font-semibold">{username}</h5>
                 <p className="text-primary text-[10px]">Engineer</p>
               </div>
             </div>
