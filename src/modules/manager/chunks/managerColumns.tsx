@@ -70,7 +70,7 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
     },
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdDate"));
-      const formatted = format(date, "yyyy-MM-dd HH:mm:ss");
+      const formatted = format(date, "yyyy-MM-dd   HH:mm:ss");
       return <div className="text-center ">{formatted}</div>;
     },
   },

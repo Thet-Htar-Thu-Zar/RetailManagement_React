@@ -14,6 +14,13 @@ import {
 } from "@tanstack/react-table";
 
 import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+
+import {
   Table,
   TableBody,
   TableCell,
@@ -86,7 +93,7 @@ export function SaleDataTable<TData, TValue>({
           className="max-w-sm"
         />
 
-        {/* <Input
+        <Input
           type="date"
           placeholder="Filter by date..."
           value={
@@ -101,7 +108,7 @@ export function SaleDataTable<TData, TValue>({
               );
           }}
           className="max-w-sm ml-4"
-        /> */}
+        />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -182,7 +189,7 @@ export function SaleDataTable<TData, TValue>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-end space-x-2 py-4">
+      {/* <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"
@@ -198,6 +205,59 @@ export function SaleDataTable<TData, TValue>({
           disabled={!table.getCanNextPage()}
         >
           Next
+        </Button>
+      </div> */}
+
+      <div className="flex items-center justify-center space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <ChevronsLeft className="w-4 h-4" />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </Button>
+
+        {/* Page Numbers */}
+        {Array.from({ length: Math.min(3, table.getPageCount()) }, (_, i) => {
+          const pageIndex = table.getState().pagination.pageIndex;
+          const pageNumber = pageIndex + i - 1;
+          if (pageNumber < 0 || pageNumber >= table.getPageCount()) return null;
+          return (
+            <Button
+              key={pageNumber}
+              variant={pageIndex === pageNumber ? "default" : "outline"}
+              size="sm"
+              onClick={() => table.setPageIndex(pageNumber)}
+            >
+              {pageNumber + 1}
+            </Button>
+          );
+        })}
+
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <ChevronRight className="w-4 h-4" />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
+          <ChevronsRight className="w-4 h-4" />
         </Button>
       </div>
     </div>
