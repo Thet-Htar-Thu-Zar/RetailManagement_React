@@ -1,4 +1,4 @@
-import { addSale } from "@/api/sale/queries";
+import { addSale } from "@/api/sale";
 import { Button } from "@/components/ui/button";
 import {
   Table,

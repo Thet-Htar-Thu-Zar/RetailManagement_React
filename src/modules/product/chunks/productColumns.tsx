@@ -28,7 +28,7 @@ export const productcolumns: ColumnDef<UpdateProductInputType>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="lowercase text-center">{row.getValue("productName")}</div>
+      <div className=" text-center">{row.getValue("productName")}</div>
     ),
   },
   {
