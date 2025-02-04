@@ -7,7 +7,7 @@ import { ArrowUpDown } from "lucide-react";
 export const userlistcolumns: ColumnDef<GetAllUserType>[] = [
   {
     accessorKey: "No",
-    header: () => <div className="text-center">No</div>,
+    header: () => <div className="text-center text-black">No</div>,
     cell: ({ row }) => {
       return <div className="text-center">{row.index + 1}</div>;
     },
@@ -19,7 +19,7 @@ export const userlistcolumns: ColumnDef<GetAllUserType>[] = [
       return (
         <Button
           variant="ghost"
-          className="hover:bg-blue-200 ml-20 text-center"
+          className="hover:bg-blue-200 ml-20 text-center text-black"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           User Name
@@ -32,7 +32,7 @@ export const userlistcolumns: ColumnDef<GetAllUserType>[] = [
 
   {
     accessorKey: "amount",
-    header: () => <div className="text-left">Amount</div>,
+    header: () => <div className="text-left text-black">Amount</div>,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -46,7 +46,7 @@ export const userlistcolumns: ColumnDef<GetAllUserType>[] = [
 
   {
     accessorKey: "userRole",
-    header: () => <div className="text-right">User Role</div>,
+    header: () => <div className="text-right text-black">User Role</div>,
     cell: ({ row }) => {
       return <div className="text-right">{row.getValue("userRole")}</div>;
     },
@@ -58,7 +58,7 @@ export const userlistcolumns: ColumnDef<GetAllUserType>[] = [
       return (
         <Button
           variant="ghost"
-          className=" text-black hover:bg-blue-200 text-center ml-40"
+          className=" text-black hover:bg-blue-200 text-center ml-40 text-black"
           onClick={() => column.toggleSorting(column.getIsSorted() === "desc")}
         >
           Created Date

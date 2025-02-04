@@ -8,7 +8,7 @@ import { format } from "date-fns";
 export const salecolumns: ColumnDef<SaleReportType>[] = [
   {
     accessorKey: "No",
-    header: () => <div className="text-center">No</div>,
+    header: () => <div className="text-black text-center">No</div>,
     cell: ({ row }) => {
       return <div className="text-center">{row.index + 1}</div>;
     },
@@ -16,21 +16,21 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
 
   {
     accessorKey: "productID",
-    header: () => <div className="text-center">Product ID</div>,
+    header: () => <div className="text-black text-center">Product ID</div>,
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("productID")}</div>;
     },
   },
   {
     accessorKey: "quantitySold",
-    header: () => <div className="text-center">Quantity Sold</div>,
+    header: () => <div className="text-black text-center">Quantity Sold</div>,
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("quantitySold")}</div>;
     },
   },
   {
     accessorKey: "totalPrice",
-    header: () => <div className="text-center">Total Price</div>,
+    header: () => <div className="text-black text-center">Total Price</div>,
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("totalPrice"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -43,7 +43,7 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
   },
   {
     accessorKey: "totalProfit",
-    header: () => <div className="text-center">Total Profit</div>,
+    header: () => <div className="text-black text-center">Total Profit</div>,
     cell: ({ row }) => {
       const profit = parseFloat(row.getValue("totalProfit"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -71,7 +71,7 @@ export const salecolumns: ColumnDef<SaleReportType>[] = [
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdDate"));
       const formatted = format(date, "yyyy-MM-dd   HH:mm:ss");
-      return <div className="text-center ">{formatted}</div>;
+      return <div className="ml-10 ">{formatted}</div>;
     },
   },
 ];

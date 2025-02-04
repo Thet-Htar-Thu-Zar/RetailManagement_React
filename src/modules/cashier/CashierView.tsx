@@ -4,12 +4,14 @@ import { toast } from "@/hooks/use-toast";
 import { RootState, useAppDispatch, useAppSelector } from "@/store";
 import { clearCart } from "@/store/features/cartSlice";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CashierView = () => {
   const CartItems = useAppSelector((state: RootState) => state.cart.cartItems);
   const dispatch = useAppDispatch();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { mutate } = addSale.useMutation({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTotalPrice(
@@ -53,6 +55,7 @@ const CashierView = () => {
       duration: 1500,
     });
     dispatch(clearCart());
+    navigate("/product");
   };
   return (
     <div>
