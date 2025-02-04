@@ -1,7 +1,9 @@
-import { ListBulletIcon, PersonIcon } from "@radix-ui/react-icons";
+import { PersonIcon } from "@radix-ui/react-icons";
 import {
   ListCheckIcon,
+  ListTreeIcon,
   ShoppingCart,
+  ThermometerSunIcon,
   UserCog2Icon,
   // Presentation,
 } from "lucide-react";
@@ -10,13 +12,19 @@ export const sidebarData = [
   {
     routeNames: ["/product"],
     name: "Product",
-    icon: ListBulletIcon,
+    icon: ThermometerSunIcon,
     subMenu: null,
   },
   {
     routeNames: ["/cart"],
     name: "Cart",
     icon: ShoppingCart,
+    subMenu: null,
+  },
+  {
+    routeNames: ["/cashier"],
+    name: "Cashier",
+    icon: ListTreeIcon,
     subMenu: null,
   },
   {

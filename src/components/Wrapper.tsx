@@ -17,7 +17,7 @@ import HomeView from "@/modules/home/HomeView";
 import ProductView from "@/modules/product/ProductView";
 import ManagerView from "@/modules/manager/ManagerView";
 import LoginView from "@/modules/auth/login/LoginView";
-import UserListView from "@/modules/manager/userListView";
+import UserListView from "@/modules/manager/UserListView";
 
 const router = createBrowserRouter([
   {

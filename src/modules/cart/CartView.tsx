@@ -20,55 +20,58 @@ import {
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CartView = () => {
   const CartItems = useAppSelector((state: RootState) => state.cart.cartItems);
   const dispatch = useAppDispatch();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { mutate } = addSale.useMutation({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTotalPrice(
       CartItems.reduce(
-        (total, item) => total + item.productPrice * item.quantity,
+        (total: number, item: { productPrice: number; quantity: number }) =>
+          total + item.productPrice * item.quantity,
         0
       )
     );
   }, [CartItems]);
 
-  const cashProcess = () => {
-    if (CartItems.length === 0) {
-      toast({
-        title: "No items in the cart...",
-        variant: "destructive",
-        duration: 600,
-      });
-      return;
-    }
+  // const cashProcess = () => {
+  //   if (CartItems.length === 0) {
+  //     toast({
+  //       title: "No items in the cart...",
+  //       variant: "destructive",
+  //       duration: 600,
+  //     });
+  //     return;
+  //   }
 
-    const saleData = CartItems.map(
-      (item: { productID: string; quantity: number }) => ({
-        productID: item.productID,
-        quantitySold: item.quantity,
-        createdBy: "user",
-      })
-    );
+  //   const saleData = CartItems.map(
+  //     (item: { productID: string; quantity: number }) => ({
+  //       productID: item.productID,
+  //       quantitySold: item.quantity,
+  //       createdBy: "user",
+  //     })
+  //   );
 
-    saleData.forEach((data) => {
-      try {
-        mutate(data);
-      } catch (error) {
-        console.error(`Error processing item ${data.productID}: `, error);
-      }
-    });
+  //   saleData.forEach((data) => {
+  //     try {
+  //       mutate(data);
+  //     } catch (error) {
+  //       console.error(`Error processing item ${data.productID}: `, error);
+  //     }
+  //   });
 
-    toast({
-      title: "Transaction completed",
-      description: "Transaction completed successfully!",
-      duration: 1500,
-    });
-    dispatch(clearCart());
-  };
+  //   toast({
+  //     title: "Transaction completed",
+  //     description: "Transaction completed successfully!",
+  //     duration: 1500,
+  //   });
+  //   dispatch(clearCart());
+  // };
 
   return (
     <div>
@@ -111,14 +114,15 @@ const CartView = () => {
               <div className="flex gap-4">
                 <Button
                   className="px-4 py-6 text-white bg-black rounded-lg hover:bg-gradient-to-r from-blue-300 to-green-600"
-                  onClick={cashProcess}
+                  onClick={() => navigate("/cashier")}
+                  // {cashProcess}
                 >
                   Proceed to Cashier
                 </Button>
               </div>
             </div>
 
-            <Table className="w-full border-collapse border border-gray-300 text-left">
+            <Table className="w-full border-collapse border border-gray-300 text-left ">
               <TableHeader className="bg-gray-200 bg-gradient-to-r from-blue-300 to-green-300">
                 <TableRow>
                   <TableHead className="px-4 py-2 border border-gray-300">
