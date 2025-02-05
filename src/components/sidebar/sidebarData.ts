@@ -1,5 +1,6 @@
 import { PersonIcon } from "@radix-ui/react-icons";
 import {
+  LampDeskIcon,
   ListCheckIcon,
   ListTreeIcon,
   ShoppingCart,
@@ -9,6 +10,12 @@ import {
 } from "lucide-react";
 
 export const sidebarData = [
+  {
+    routeNames: ["/"],
+    name: "Dashboard",
+    icon: LampDeskIcon,
+    subMenu: null,
+  },
   {
     routeNames: ["/product"],
     name: "Product",
