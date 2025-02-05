@@ -110,6 +110,8 @@ export function SaleDataTable<TData, TValue>({
           className="max-w-sm ml-4"
         />
 
+        
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -140,7 +142,7 @@ export function SaleDataTable<TData, TValue>({
 
       <div className="rounded-md border">
         <Table>
-          <TableHeader className="bg-slate-300">
+          <TableHeader className="bg-slate-400">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
