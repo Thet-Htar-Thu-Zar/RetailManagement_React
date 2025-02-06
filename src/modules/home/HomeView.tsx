@@ -1,7 +1,6 @@
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -10,10 +9,56 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import F1 from "../../assets/Photos/F1.png";
+import F2 from "../../assets/Photos/F2.png";
+import F3 from "../../assets/Photos/F3.png";
+import F4 from "../../assets/Photos/F4.png";
+
+("use client");
+
+import { TrendingUp } from "lucide-react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  Tooltip as ChartTooltip,
+  YAxis,
+  Legend,
+} from "recharts";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import api from "@/api";
+
 const HomeView = () => {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
+
+  const { data: sale } = api.sale?.getallsale.useQuery() ?? {};
+  console.log(sale);
+  const chartConfig = {
+    desktop: {
+      label: "totalPrice",
+      color: "hsl(var(--chart-1))",
+    },
+    mobile: {
+      label: "totalProfit",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
 
   return (
     <div className="p-6 min-h-screen bg-cover bg-center">
@@ -21,6 +66,7 @@ const HomeView = () => {
         Welcome to the Dashboard
       </h1>
 
+      {/* YouTube Vd */}
       <div className="flex items-center justify-center mb-10">
         <iframe
           width="560"
@@ -44,6 +90,60 @@ const HomeView = () => {
         </div>
       </div>
 
+      {/* Bar Chart */}
+      <div className="mb-10">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex justify-center items-center text-lg font-semibold">
+              📊 Sales Report Bar Chart
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {sale ? (
+              <ChartContainer config={chartConfig}>
+                <BarChart
+                  data={sale}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="createdDate"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                  />
+                  <YAxis tickLine={false} axisLine={false} />
+                  <ChartTooltip
+                    cursor={{ fill: "rgba(0,0,0,0.1)" }}
+                    content={
+                      <ChartTooltipContent
+                      // indicator="solid"
+                      />
+                    }
+                  />
+                  <Legend />
+                  <Bar
+                    dataKey="totalProfit"
+                    fill="#4F46E5"
+                    radius={[6, 6, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="totalPrice"
+                    fill="#EC4899"
+                    radius={[6, 6, 0, 0]}
+                  />
+                </BarChart>
+              </ChartContainer>
+            ) : (
+              <div className="text-center text-gray-500">
+                Loading sales data...
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Carousel */}
       <div className="flex items-center justify-center">
         {/* <Carousel
           plugins={[plugin.current]}
@@ -105,28 +205,28 @@ const HomeView = () => {
                     <CardContent className="flex aspect-square items-center justify-center p-6">
                       {index % 4 === 0 && (
                         <img
-                          src={"../../assets/Photos/F1.png"}
+                          src={F1}
                           alt="Photo"
-                          className="w-70 h-30 object-cover rounded-lg"
+                          className="w-full h-full object-cover rounded-lg"
                         />
                       )}
                       {index % 4 === 1 && (
                         <img
-                          src="../../assets/Photos/F2.png"
+                          src={F2}
                           alt="Photo"
                           className="w-full h-full object-cover rounded-lg"
                         />
                       )}
                       {index % 4 === 2 && (
                         <img
-                          src="../../assets/Photos/F3.png"
+                          src={F3}
                           alt="Photo"
                           className="w-full h-full object-cover rounded-lg"
                         />
                       )}
                       {index % 4 === 3 && (
                         <img
-                          src="../../assets/Photos/F4.png"
+                          src={F4}
                           alt="Photo"
                           className="w-full h-full object-cover rounded-lg"
                         />
