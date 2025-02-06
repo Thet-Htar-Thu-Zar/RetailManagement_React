@@ -1,5 +1,9 @@
+("use client");
+
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { TrendingUp } from "lucide-react";
+import { Label, Pie, PieChart } from "recharts";
 
 import {
   Carousel,
@@ -14,9 +18,6 @@ import F2 from "../../assets/Photos/F2.png";
 import F3 from "../../assets/Photos/F3.png";
 import F4 from "../../assets/Photos/F4.png";
 
-("use client");
-
-import { TrendingUp } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -48,13 +49,15 @@ const HomeView = () => {
   );
 
   const { data: sale } = api.sale?.getallsale.useQuery() ?? {};
-  console.log(sale);
-  const chartConfig = {
-    desktop: {
+
+  const { data: user } = api.user?.getalluser.useQuery() ?? {};
+
+  const barChartConfig = {
+    price: {
       label: "totalPrice",
       color: "hsl(var(--chart-1))",
     },
-    mobile: {
+    profit: {
       label: "totalProfit",
       color: "hsl(var(--chart-2))",
     },
@@ -100,7 +103,7 @@ const HomeView = () => {
           </CardHeader>
           <CardContent>
             {sale ? (
-              <ChartContainer config={chartConfig}>
+              <ChartContainer config={barChartConfig}>
                 <BarChart
                   data={sale}
                   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
@@ -145,101 +148,59 @@ const HomeView = () => {
 
       {/* Carousel */}
       <div className="flex items-center justify-center">
-        {/* <Carousel
-          plugins={[plugin.current]}
-          className="w-full max-w-xs"
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
-        >
-          <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <img
-                        v-if="index % 4 === 0"
-                        src="../"
-                        alt="Photo"
-                        className="w-70 h-30 object-cover rounded-lg"
-                      />
-                      <img
-                        v-else-if="index % 4 === 1"
-                        src="../../assets/Photos/F2.png"
-                        alt="Photo"
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                      <img
-                        v-else-if="index % 4 === 2"
-                        src="../../assets/Photos/F3.png"
-                        alt="Photo"
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                      <img
-                        v-else
-                        src="../../assets/Photos/F4.png"
-                        alt="Photo"
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel> */}
-
-        <Carousel
-          plugins={[plugin.current]}
-          className="w-full max-w-xs"
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
-        >
-          <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      {index % 4 === 0 && (
-                        <img
-                          src={F1}
-                          alt="Photo"
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      )}
-                      {index % 4 === 1 && (
-                        <img
-                          src={F2}
-                          alt="Photo"
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      )}
-                      {index % 4 === 2 && (
-                        <img
-                          src={F3}
-                          alt="Photo"
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      )}
-                      {index % 4 === 3 && (
-                        <img
-                          src={F4}
-                          alt="Photo"
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      )}
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        <div>
+          <Carousel
+            plugins={[plugin.current]}
+            className="w-full max-w-xs"
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.reset}
+          >
+            <CarouselContent>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-square items-center justify-center p-6">
+                        {index % 4 === 0 && (
+                          <img
+                            src={F1}
+                            alt="Photo"
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        )}
+                        {index % 4 === 1 && (
+                          <img
+                            src={F2}
+                            alt="Photo"
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        )}
+                        {index % 4 === 2 && (
+                          <img
+                            src={F3}
+                            alt="Photo"
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        )}
+                        {index % 4 === 3 && (
+                          <img
+                            src={F4}
+                            alt="Photo"
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        )}
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
+        {/* Pie Chart */}
+        <div></div>
       </div>
     </div>
   );
