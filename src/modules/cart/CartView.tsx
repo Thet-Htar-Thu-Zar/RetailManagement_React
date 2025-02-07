@@ -9,10 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { toast } from "@/hooks/use-toast";
 import { RootState, useAppDispatch, useAppSelector } from "@/store";
 import {
-  clearCart,
   increaseItem,
   reduceItem,
   removeFromCart,

@@ -2,8 +2,7 @@
 
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { TrendingUp } from "lucide-react";
-import { Label, Pie, PieChart } from "recharts";
+import { Label, Pie, PieChart, Cell } from "recharts";
 
 import {
   Carousel,
@@ -28,20 +27,14 @@ import {
   Legend,
 } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import api from "@/api";
+import { DotLottiePlayer } from "@dotlottie/react-player";
 
 const HomeView = () => {
   const plugin = React.useRef(
@@ -63,10 +56,43 @@ const HomeView = () => {
     },
   } satisfies ChartConfig;
 
+  const pieChartConfig = {
+    userName: {
+      label: "Users",
+    },
+    amount: {
+      label: "amount",
+      color: "hsl(var(--chart-2))",
+    },
+    other: {
+      label: "Other",
+      color: "hsl(var(--chart-5))",
+    },
+  } satisfies ChartConfig;
+
+  const totalusers = React.useMemo(() => {
+    return (user ?? []).length;
+  }, []);
+
+  const colorArray = [
+    "#FF6384",
+    "#36A2EB",
+    "#FFCE56",
+    "#4BC0C0",
+    "#9966FF",
+    "#FF9F40",
+  ];
+
   return (
     <div className="p-6 min-h-screen bg-cover bg-center">
-      <h1 className="text-3xl font-semibold text-center text-gray-600 flex justify-center mb-5">
+      <h1 className="text-3xl font-semibold text-center text-gray-600 flex justify-center mb-7">
         Welcome to the Dashboard
+        <DotLottiePlayer
+          src="https://lottie.host/e43dde6f-0aaf-4816-bd8c-956d046268b3/KASRkwTmpq.lottie"
+          autoplay
+          loop
+          className="w-10 h-10"
+        />
       </h1>
 
       {/* YouTube Vd */}
@@ -148,7 +174,7 @@ const HomeView = () => {
 
       {/* Carousel */}
       <div className="flex items-center justify-center">
-        <div>
+        <div className="">
           <Carousel
             plugins={[plugin.current]}
             className="w-full max-w-xs"
@@ -199,8 +225,74 @@ const HomeView = () => {
             <CarouselNext />
           </Carousel>
         </div>
-        {/* Pie Chart */}
-        <div></div>
+      </div>
+
+      {/* Pie Chart */}
+      <div>
+        <Card className="flex flex-col">
+          <CardHeader className="items-center pb-0">
+            <CardTitle className="flex justify-center items-center text-lg font-semibold">
+              📋 Pie Chart for Total User_List and Amount
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex-1 pb-0 ">
+            <ChartContainer
+              config={pieChartConfig}
+              className="mx-auto aspect-square max-h-[650px] "
+            >
+              <PieChart>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Pie
+                  data={user}
+                  dataKey="amount"
+                  nameKey="userName"
+                  innerRadius={60}
+                  strokeWidth={5}
+                  label
+                >
+                  {user?.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={colorArray[index % colorArray.length]}
+                    />
+                  ))}
+                  <Label
+                    content={({ viewBox }) => {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                        return (
+                          <text
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                          >
+                            <tspan
+                              x={viewBox.cx}
+                              y={viewBox.cy}
+                              className="fill-foreground text-3xl font-bold"
+                            >
+                              {totalusers.toLocaleString()}
+                            </tspan>
+                            <tspan
+                              x={viewBox.cx}
+                              y={(viewBox.cy || 0) + 24}
+                              className="fill-muted-foreground"
+                            >
+                              Users
+                            </tspan>
+                          </text>
+                        );
+                      }
+                    }}
+                  />
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
