@@ -43,6 +43,10 @@ const HomeView = () => {
 
   const { data: sale } = api.sale?.getallsale.useQuery() ?? {};
 
+  const { data: stock } = api.product?.fetchStocks.useQuery() ?? {};
+
+  const { data: summary } = api.sale?.getsalesummary.useQuery() ?? {};
+
   const { data: user } = api.user?.getalluser.useQuery() ?? {};
 
   const barChartConfig = {
@@ -94,6 +98,37 @@ const HomeView = () => {
           className="w-10 h-10"
         />
       </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div className=" shadow-lg rounded-lg p-6">
+          <h2 className="text-lg font-semibold text-gray-700">
+            Total Sale Profit💸
+          </h2>
+          <p className="text-3xl font-bold text-blue-600">
+            ${summary?.totalSaleProfit ?? 0}{" "}
+          </p>
+        </div>
+        <div className=" shadow-lg rounded-lg p-6">
+          <h2 className="text-lg font-semibold text-gray-700">
+            Total Sale Revenue💵
+          </h2>
+          <p className="text-3xl font-bold text-green-600">
+            ${summary?.totalSaleRevenue}
+          </p>
+        </div>
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h2 className="text-lg font-semibold text-gray-700">
+            Total Sale Count🛍
+          </h2>
+          <p className="text-3xl font-bold text-yellow-600">{sale?.length}</p>
+        </div>
+        <div className=" shadow-lg rounded-lg p-6">
+          <h2 className="text-lg font-semibold text-gray-700">
+            Total Product Count🍱
+          </h2>
+          <p className="text-3xl font-bold text-red-600">{stock?.length}</p>
+        </div>
+      </div>
 
       {/* YouTube Vd */}
       <div className="flex items-center justify-center mb-10">
@@ -173,7 +208,7 @@ const HomeView = () => {
       </div>
 
       {/* Carousel */}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center mb-10">
         <div className="">
           <Carousel
             plugins={[plugin.current]}
